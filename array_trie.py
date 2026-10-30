@@ -5,7 +5,41 @@ class ArrayTrieNode:
         self.end: bool = False
 
     def insert(self, word: str):
-        pass
-    
+        cur_node: ArrayTrieNode = self
+        total_operations = 0
+
+        for c in word:
+            ch_index = ord(c) - ord('a')
+
+            child = cur_node.children[ch_index]
+
+            # If the child doesn't exist, create it and update the children array
+            if child is None:
+                child = ArrayTrieNode(c)
+                cur_node.children[ch_index] = child
+
+            cur_node = child
+            total_operations += 1
+
+        cur_node.end = True
+
+        return total_operations
+ 
     def search(self, word: str):
-        pass
+        cur_node: ArrayTrieNode = self
+        total_operations = 0
+
+        for c in word:
+            ch_index = ord(c) - ord('a')
+
+            child = cur_node.children[ch_index]
+
+            total_operations += 1
+
+            if child is None:
+                return (False, total_operations)
+
+            cur_node = child
+
+        return (cur_node.end, total_operations)
+            

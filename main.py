@@ -1,5 +1,6 @@
 import argparse
 import string
+from array_trie import ArrayTrieNode
 
 parser = argparse.ArgumentParser()
 
@@ -20,5 +21,3 @@ with open(f"./input/{args.input_file}") as file:
 
             if normalized_word != "":
                 words.append(normalized_word)
-
-print(words)
