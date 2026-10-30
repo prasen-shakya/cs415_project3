@@ -27,4 +27,17 @@ root = ArrayTrieNode("ROOT")
 for word in words:
     root.insert(word)
 
-print(root.search("apple"))
+print(f"Time taken to build the standard Trie is {root.total_build_operations} operations and space occupied by it is {root.total_pointer_units} pointer units")
+print()
+
+while True:
+    try:
+        search_string = input("Enter search string: ")
+    except (EOFError, KeyboardInterrupt):
+        break
+
+    success, search_operations, autocomplete_results = root.search(search_string)
+    print()
+    print(f"Time taken to search in the standard Trie is {search_operations} operations. ")
+    print(f"Auto-complete results using standard Trie are: {", ".join(autocomplete_results)}")
+    print()

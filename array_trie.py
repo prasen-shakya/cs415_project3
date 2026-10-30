@@ -4,9 +4,11 @@ class ArrayTrieNode:
         self.children: list[ArrayTrieNode | None] = [None] * 26
         self.end: bool = False
 
+        self.total_build_operations = 0
+        self.total_pointer_units = 0
+
     def insert(self, word: str):
         cur_node: ArrayTrieNode = self
-        total_operations = 0
 
         for c in word:
             ch_index = ord(c) - ord('a')
@@ -19,12 +21,10 @@ class ArrayTrieNode:
                 cur_node.children[ch_index] = child
 
             cur_node = child
-            total_operations += 1
+            self.total_build_operations += 1
 
         cur_node.end = True
 
-        return total_operations
- 
     def search(self, word: str):
         cur_node: ArrayTrieNode = self
         total_operations = 0
