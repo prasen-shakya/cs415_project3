@@ -36,8 +36,11 @@ while True:
     except (EOFError, KeyboardInterrupt):
         break
 
-    success, search_operations, autocomplete_results = root.search(search_string)
+    search_string = search_string.strip().lower().translate(translator)
+    success, search_operations = root.search(search_string)
+    autocomplete_results, autocomplete_operations = root.autocomplete(search_string)
     print()
-    print(f"Time taken to search in the standard Trie is {search_operations} operations. ")
+    print(f"Time taken to search in the standard Trie is {search_operations} operations")
     print(f"Auto-complete results using standard Trie are: {", ".join(autocomplete_results)}")
+    print(f"Time taken to find auto-complete results in the standard Trie is {autocomplete_operations} operations")
     print()
