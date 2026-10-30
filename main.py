@@ -21,3 +21,10 @@ with open(f"./input/{args.input_file}") as file:
 
             if normalized_word != "":
                 words.append(normalized_word)
+
+root = ArrayTrieNode("ROOT")
+
+for word in words:
+    root.insert(word)
+
+print(root.search("apple"))

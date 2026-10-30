@@ -28,6 +28,7 @@ class ArrayTrieNode:
     def search(self, word: str):
         cur_node: ArrayTrieNode = self
         total_operations = 0
+        autocomplete_results = []
 
         for c in word:
             ch_index = ord(c) - ord('a')
@@ -37,9 +38,25 @@ class ArrayTrieNode:
             total_operations += 1
 
             if child is None:
-                return (False, total_operations)
+                return (False, total_operations, autocomplete_results)
 
             cur_node = child
 
-        return (cur_node.end, total_operations)
+        autocomplete_results = self.autocomplete(cur_node, word)
+        return (cur_node.end, total_operations, autocomplete_results)
+
+    def autocomplete(self, cur_node: ArrayTrieNode, prefix: str) -> list[str]:
+        res = []
+
+        def dfs(node: ArrayTrieNode, path: list[str]):
+            if node.end:
+                res.append(prefix + "".join(path))
+
+            for child in node.children:
+                if child is not None:
+                    path.append(child.value)
+                    dfs(child, path)
+                    path.pop()
             
+        dfs(cur_node, [])
+        return res
