@@ -12,15 +12,19 @@ args = parser.parse_args()
 words = []
 translator = str.maketrans('', '', string.punctuation)
 
-with open(f"./input/{args.input_file}") as file:
-    for line in file:
-        words_in_line = line.split()
+try:
+    with open(f"./input/{args.input_file}") as file:
+        for line in file:
+            words_in_line = line.split()
 
-        for word in words_in_line:
-            normalized_word = word.lower().translate(translator)
+            for word in words_in_line:
+                normalized_word = word.lower().translate(translator)
 
-            if normalized_word != "":
-                words.append(normalized_word)
+                if normalized_word != "":
+                    words.append(normalized_word)
+except FileNotFoundError:
+    print(f"Error: The file '{args.input_file}' was not found.")
+    exit(1)
 
 root = ArrayTrieNode("ROOT")
 
