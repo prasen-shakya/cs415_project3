@@ -4,8 +4,10 @@ from array_trie import ArrayTrieNode
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument("input_file")
-parser.add_argument("flag", type=int)
+parser.add_argument("input_file",
+                    help="Name of the text file to read words from.")
+parser.add_argument("flag", type=int, choices=[1, 2],
+                    help="1 = interactive search, 2 = search every word in the file")
 
 args = parser.parse_args()
 
@@ -34,17 +36,25 @@ for word in words:
 print(f"Time taken to build the standard Trie is {root.total_build_operations} operations and space occupied by it is {root.total_pointer_units} pointer units")
 print()
 
-while True:
-    try:
-        search_string = input("Enter search string: ")
-    except (EOFError, KeyboardInterrupt):
-        break
+if args.flag == 1:
+    while True:
+        try:
+            search_string = input("Enter search string: ")
+        except (EOFError, KeyboardInterrupt):
+            break
 
-    search_string = search_string.strip().lower().translate(translator)
-    success, search_operations = root.search(search_string)
-    autocomplete_results, autocomplete_operations = root.autocomplete(search_string)
-    print()
-    print(f"Time taken to search in the standard Trie is {search_operations} operations")
-    print(f"Auto-complete results using standard Trie are: {", ".join(autocomplete_results)}")
-    print(f"Time taken to find auto-complete results in the standard Trie is {autocomplete_operations} operations")
-    print()
+        search_string = search_string.strip().lower().translate(translator)
+        success, search_operations = root.search(search_string)
+        autocomplete_results, autocomplete_operations = root.autocomplete(search_string)
+        print()
+        print(f"Time taken to search in the standard Trie is {search_operations} operations")
+        print(f"Auto-complete results using standard Trie are: {", ".join(autocomplete_results)}")
+        print(f"Time taken to find auto-complete results in the standard Trie is {autocomplete_operations} operations")
+        print()
+else:
+    total_search_operations = 0 
+
+    for word in words:
+        total_search_operations += root.search(word)[1]
+
+    print(f"Time taken to search all the strings in the standard Trie is {total_search_operations} operations")
