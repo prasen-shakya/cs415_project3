@@ -1,5 +1,5 @@
 import pytest
-from ternary_trie import TernaryTrieNode
+from models.ternary_trie import TernaryTrieNode
 
 @pytest.fixture
 def root():

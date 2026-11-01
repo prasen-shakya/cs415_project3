@@ -1,7 +1,7 @@
 import argparse
 import string
-from array_trie import ArrayTrieNode
-from ternary_trie import TernaryTrieNode
+from models.array_trie import ArrayTrieNode
+from models.ternary_trie import TernaryTrieNode
 
 parser = argparse.ArgumentParser()
 
