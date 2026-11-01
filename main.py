@@ -28,12 +28,13 @@ except FileNotFoundError:
     print(f"Error: The file '{args.input_file}' was not found.")
     exit(1)
 
-root = ArrayTrieNode("ROOT")
+array_root = ArrayTrieNode("ROOT")
+
 
 for word in words:
-    root.insert(word)
+    array_root.insert(word)
 
-print(f"Time taken to build the standard Trie is {root.total_build_operations} operations and space occupied by it is {root.total_pointer_units} pointer units")
+print(f"Time taken to build the standard Trie is {array_root.total_build_operations} operations and space occupied by it is {array_root.total_pointer_units} pointer units")
 print()
 
 if args.flag == 1:
@@ -44,8 +45,8 @@ if args.flag == 1:
             break
 
         search_string = search_string.strip().lower().translate(translator)
-        success, search_operations = root.search(search_string)
-        autocomplete_results, autocomplete_operations = root.autocomplete(search_string)
+        success, search_operations = array_root.search(search_string)
+        autocomplete_results, autocomplete_operations = array_root.autocomplete(search_string)
         print()
         print(f"Time taken to search in the standard Trie is {search_operations} operations")
         print(f"Auto-complete results using standard Trie are: {", ".join(autocomplete_results)}")
@@ -55,6 +56,6 @@ else:
     total_search_operations = 0 
 
     for word in words:
-        total_search_operations += root.search(word)[1]
+        total_search_operations += array_root.search(word)[1]
 
     print(f"Time taken to search all the strings in the standard Trie is {total_search_operations} operations")
