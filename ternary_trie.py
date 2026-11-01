@@ -36,13 +36,39 @@ class TernaryTrieNode:
 
             i += 1
 
-            if cur_node.next == None:
+            if cur_node.next is None:
                 cur_node.next = TernaryTrieNode(word[i])
                 
             cur_node = cur_node.next
 
     def search(self, word: str):
-        pass
+        i = 0
+        cur_node = self
+        
+        while i < len(word):
+            if word[i] < cur_node.value:
+                if cur_node.left is None:
+                    return False
+        
+                cur_node = cur_node.left
+                continue
+        
+            if word[i] > cur_node.value:
+                if cur_node.right is None:
+                    return False
+        
+                cur_node = cur_node.right
+                continue
+        
+            if i == len(word) - 1:
+                return cur_node.end 
+        
+            i += 1
+        
+            if cur_node.next is None:
+                return False
+        
+            cur_node = cur_node.next
 
     def autocomplete(self, prefix: str):
         pass
