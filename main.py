@@ -1,6 +1,7 @@
 import argparse
 import string
 from array_trie import ArrayTrieNode
+from ternary_trie import TernaryTrieNode
 
 parser = argparse.ArgumentParser()
 
@@ -29,6 +30,7 @@ except FileNotFoundError:
     exit(1)
 
 array_root = ArrayTrieNode("ROOT")
+ternary_root = TernaryTrieNode("ROOT")
 
 
 for word in words:
