@@ -14,17 +14,20 @@ class ArrayTrieNode:
             ch_index = ord(c) - ord('a')
 
             child = cur_node.children[ch_index]
+            self.total_build_operations += 1
 
             # If the child doesn't exist, create it and update the children array
             if child is None:
                 self.total_pointer_units += 26
                 child = ArrayTrieNode(c)
+                self.total_build_operations += 1
                 cur_node.children[ch_index] = child
+                self.total_build_operations += 1
 
             cur_node = child
-            self.total_build_operations += 1
 
         cur_node.end = True
+        self.total_build_operations += 1
 
     def search(self, word: str):
         cur_node: ArrayTrieNode = self
@@ -42,6 +45,7 @@ class ArrayTrieNode:
 
             cur_node = child
 
+        total_operations += 1
         return (cur_node.end, total_operations)
 
     def autocomplete(self, prefix: str) -> tuple[list[str], int]:
@@ -66,6 +70,7 @@ class ArrayTrieNode:
 
         def dfs(node: ArrayTrieNode, path: list[str]):
             nonlocal total_operations
+            total_operations += 1
             if node.end:
                 res.append(prefix + "".join(path))
 
