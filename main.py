@@ -35,8 +35,10 @@ ternary_root = TernaryTrieNode("ROOT")
 
 for word in words:
     array_root.insert(word)
+    ternary_root.insert(word)
 
 print(f"Time taken to build the standard Trie is {array_root.total_build_operations} operations and space occupied by it is {array_root.total_pointer_units} pointer units")
+print(f"Time taken to build the BST Trie is {ternary_root.total_build_operations} operations and space occupied by it is {ternary_root.total_pointer_units} pointer units")
 print()
 
 if args.flag == 1:
@@ -47,17 +49,25 @@ if args.flag == 1:
             break
 
         search_string = search_string.strip().lower().translate(translator)
-        success, search_operations = array_root.search(search_string)
+        array_success, array_search_operations = array_root.search(search_string)
+        ternary_success, ternary_search_operations = ternary_root.search(search_string)
         autocomplete_results, autocomplete_operations = array_root.autocomplete(search_string)
         print()
-        print(f"Time taken to search in the standard Trie is {search_operations} operations")
+        print(f"Time taken to search in the standard Trie is {array_search_operations} operations")
         print(f"Auto-complete results using standard Trie are: {", ".join(autocomplete_results)}")
         print(f"Time taken to find auto-complete results in the standard Trie is {autocomplete_operations} operations")
         print()
+        print(f"Time taken to search in the BST based Trie is {ternary_search_operations} operations")
+        print()
+        
 else:
-    total_search_operations = 0 
+    total_array_search_operations = 0 
+    total_ternary_search_operations = 0 
 
     for word in words:
-        total_search_operations += array_root.search(word)[1]
+        total_array_search_operations += array_root.search(word)[1]
+        total_ternary_search_operations += ternary_root.search(word)[1]
 
-    print(f"Time taken to search all the strings in the standard Trie is {total_search_operations} operations")
+
+    print(f"Time taken to search all the strings in the standard Trie is {total_array_search_operations} operations")
+    print(f"Time taken to search all the strings in the standard Trie is {total_ternary_search_operations} operations")
