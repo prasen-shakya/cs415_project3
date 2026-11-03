@@ -93,4 +93,36 @@ class TernaryTrieNode:
         return (False, total_operations)
 
     def autocomplete(self, prefix: str):
-        pass
+        res = []
+        # Get to the prefix node
+
+        i = 0
+        cur_node = self
+        
+        while i < len(prefix):
+            if prefix[i] < cur_node.value:
+                if cur_node.left is None:
+                    return res # Handles the case where the prefix isn't found (returns empty array)
+        
+                cur_node = cur_node.left
+                continue
+        
+            if prefix[i] > cur_node.value:
+                if cur_node.right is None:
+                    return res # Handles the case where the prefix isn't found (returns empty array)
+        
+                cur_node = cur_node.right
+                continue
+        
+            if i == len(prefix) - 1:
+                # RUN SOMETHING HERE WE FOUND IT! WE FOUND ITTTTTT!!!
+                print("Hey man 😏")
+        
+            i += 1
+        
+            if cur_node.next is None:
+                return res # Handles the case where the prefix isn't found (returns empty array)
+        
+            cur_node = cur_node.next
+
+        return res
