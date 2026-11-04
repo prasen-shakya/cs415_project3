@@ -56,11 +56,11 @@ def test_2(root):
     assert cur_node.next is not None
 
 def test_3(root):
-    assert root.search("cute") == True
-    assert root.search("c") == False
-    assert root.search("cubs") == True
-    assert root.search("cube") == True
-    assert root.search("da") == False
-    assert root.search("day") == True
-    assert root.search("daze") == True
-    assert root.search("daze") == True
+    assert root.search("cute")[0] == True
+    assert root.search("c")[0] == False
+    assert root.search("cubs")[0] == True
+    assert root.search("cube")[0] == True
+    assert root.search("da")[0] == False
+    assert root.search("day")[0] == True
+    assert root.search("daze")[0] == True
+    assert root.search("daze")[0] == True
