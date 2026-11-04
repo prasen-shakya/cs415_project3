@@ -94,35 +94,71 @@ class TernaryTrieNode:
 
     def autocomplete(self, prefix: str):
         res = []
-        # Get to the prefix node
+        total_operations = 0
 
         i = 0
         cur_node = self
-        
+
+        def dfs(node: TernaryTrieNode | None, path: list[str]):
+            nonlocal total_operations
+
+            if node is None:
+                return
+
+            total_operations += 1
+            dfs(node.left, path)
+
+            path.append(node.value)
+
+            total_operations += 1
+            if node.end:
+                res.append(prefix + "".join(path))
+
+            total_operations += 1
+            dfs(node.next, path)
+
+            path.pop()
+
+            total_operations += 1
+            dfs(node.right, path)
+
+        if prefix == "":
+            dfs(cur_node, [])
+            return (res, total_operations)
+
+        # Get to the prefix node
         while i < len(prefix):
+            total_operations += 1
             if prefix[i] < cur_node.value:
                 if cur_node.left is None:
-                    return res # Handles the case where the prefix isn't found (returns empty array)
+                    return (res, total_operations) # Handles the case where the prefix isn't found
         
                 cur_node = cur_node.left
                 continue
         
+            total_operations += 1
             if prefix[i] > cur_node.value:
                 if cur_node.right is None:
-                    return res # Handles the case where the prefix isn't found (returns empty array)
+                    return (res, total_operations) # Handles the case where the prefix isn't found
         
                 cur_node = cur_node.right
                 continue
         
+            total_operations += 1
             if i == len(prefix) - 1:
-                # RUN SOMETHING HERE WE FOUND IT! WE FOUND ITTTTTT!!!
-                print("Hey man 😏")
+                total_operations += 1
+                if cur_node.end:
+                    res.append(prefix)
+                total_operations += 1
+                dfs(cur_node.next, [])
+                break
         
             i += 1
-        
+            total_operations += 1
+
             if cur_node.next is None:
-                return res # Handles the case where the prefix isn't found (returns empty array)
+                return (res, total_operations) # Handles the case where the prefix isn't found
         
             cur_node = cur_node.next
 
-        return res
+        return (res, total_operations)
